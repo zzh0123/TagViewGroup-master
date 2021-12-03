@@ -1,0 +1,36 @@
+apply plugin: 'com.android.application'
+apply from: new File('../dependence.gradle')
+
+android {
+    compileSdkVersion project.ext.targetVersion
+    buildToolsVersion "${project.ext.buildTool}"
+    defaultConfig {
+        applicationId 'com.licrafter.sample'
+        minSdkVersion project.ext.minVersion
+        targetSdkVersion project.ext.targetVersion
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    productFlavors {
+    }
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    testImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    implementation "com.android.support:appcompat-v7:${project.ext.supportLib}"
+    implementation "com.android.support:design:${project.ext.supportLib}"
+    implementation "com.squareup.picasso:picasso:${project.ext.picasso}"
+    testImplementation "junit:junit:${project.ext.junit}"
+    //implementation "com.github.shellljx:TagViewGroup:${project.ext.tagViewGroup}"
+    implementation project(path: ':library')
+}
